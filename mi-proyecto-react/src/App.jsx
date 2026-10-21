@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import './App.css'; // Asegúrate de tener o crear tus estilos si lo deseas
 
 export default function App() {
-  // Estados para almacenar el Blob y el resultado en pantalla
   const [miBlob, setMiBlob] = useState(null);
   const [resultadoTexto, setResultadoTexto] = useState('');
   const [mostrarResultado, setMostrarResultado] = useState(false);
@@ -11,11 +9,9 @@ export default function App() {
   const crearBlob = () => {
     const contenidoTexto = "Hola! Este es un archivo de texto creado dinámicamente utilizando el concepto de Blob en React para el Trabajo Práctico N°5.";
     
-    // Crear el Blob especificando el contenido y el tipo MIME
     const nuevoBlob = new Blob([contenidoTexto], { type: 'text/plain;charset=utf-8' });
     setMiBlob(nuevoBlob);
 
-    // Mostrar la información en la interfaz
     setResultadoTexto(`[ÉXITO] Blob creado correctamente.\nTamaño total: ${nuevoBlob.size} bytes\nTipo MIME: ${nuevoBlob.type}\nContenido: "${contenidoTexto}"`);
     setMostrarResultado(true);
   };
@@ -24,10 +20,7 @@ export default function App() {
   const descargarBlob = () => {
     if (!miBlob) return;
 
-    // Generar una URL temporal en memoria que apunta al Blob
     const url = URL.createObjectURL(miBlob);
-    
-    // Crear un elemento <a> temporal y oculto para forzar la descarga
     const enlace = document.createElement('a');
     enlace.href = url;
     enlace.download = 'archivo_blob.txt';
@@ -35,7 +28,6 @@ export default function App() {
     document.body.appendChild(enlace);
     enlace.click();
     
-    // Limpieza posterior
     document.body.removeChild(enlace);
     URL.revokeObjectURL(url);
   };
@@ -44,10 +36,8 @@ export default function App() {
   const usarSlice = () => {
     if (!miBlob) return;
 
-    // Utilizar el método .slice() para extraer una porción del Blob (desde el byte 0 al 30)
     const blobCortado = miBlob.slice(0, 30, 'text/plain');
 
-    // Leer el fragmento con FileReader para mostrarlo en pantalla
     const lector = new FileReader();
     lector.onload = function(e) {
       setResultadoTexto(prev => prev + `\n\n--- Uso de slice() ---\nFragmento extraído (bytes 0 a 30):\n"${e.target.result}..."\nTamaño del nuevo fragmento: ${blobCortado.size} bytes`);
@@ -56,7 +46,6 @@ export default function App() {
   };
 
   return (
-    
     <div style={{
       fontFamily: 'Arial, sans-serif',
       backgroundColor: '#f8f9fa',
