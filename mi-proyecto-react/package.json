@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/rluna459/trabajo5"
+  "homepage": "https://github.com/rluna459/trabajo5",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
